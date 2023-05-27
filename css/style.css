@@ -1,0 +1,45 @@
+body {
+    background-color: antiquewhite;
+}
+
+form {
+    width: 80%;
+    margin: 0 auto;
+    background-color: cornflowerblue;
+    padding: 24px 0px;
+    color: white;
+}
+
+button[type="submit"] {
+    background-color: chartreuse;
+    padding: 6px;
+    width: 100px;
+    border: 0px;
+
+
+}
+
+/*次標題設計*/
+.sub-titles {
+    display: inline-block;
+    width: 300px;
+    font-size: 24px;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: tomato;
+    padding: 6px 12px;
+    margin-bottom: 12px;
+    border-radius: 6px;
+
+}
+
+#container {
+    width: 80%;
+    margin: 24px auto;
+    text-align: center;
+}
+
+input {
+    text-align: center;
+    margin: 6px 0px;
+
+}

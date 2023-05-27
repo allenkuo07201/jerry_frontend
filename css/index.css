@@ -1,0 +1,113 @@
+		.text-1 {
+		    background-color: aquamarine;
+		    padding: 12px;
+
+
+		}
+
+		.text-3 {
+		    text-align: left;
+		    background-color: chartreuse;
+		    border-radius: 12px;
+		}
+
+		.text-3 li {
+		    margin-left: 24px;
+		}
+
+		#block2 {
+		    width: 100%;
+		    background-color: aqua;
+		    text-align: center;
+		    padding: 6px 0px;
+		}
+
+		#block2 img {
+		    height: 300px;
+		    width: 32%;
+		}
+
+		#block2-1 {
+		    background-color: white;
+		    padding: 4px;
+
+		}
+
+		img {
+		    background-color: white;
+		    padding: 6px;
+		    border-radius: 3px;
+		}
+
+		/*連結的樣式設定*/
+		li a {
+		    text-decoration: none;
+		    color: black;
+		}
+
+		li a:hover {
+		    color: blue;
+		}
+
+		li a :visited {
+		    color: gray;
+		}
+
+		/*表格的樣式設定*/
+		#table-1 {
+		    width: 80%;
+		    margin: 0px auto;
+		    height: 100px;
+		    font-size: 20px;
+		}
+
+		#table-1 th {
+		    background-color: darkblue;
+		    color: white;
+		}
+
+		#table-1 td {
+		    text-align: center;
+		    background-color: aquamarine;
+		}
+
+		#table-1 td:first-child {
+		    background-color: darkblue;
+		    color: white;
+		}
+
+		#table-1 td:nth-child(even) {
+		    background-color: rgb(139, 0, 104);
+		    color: white;
+		}
+
+		/*
+		#table-1 td:nth-child(3) {
+			background-color: rgb(139, 0, 104);
+			color: white;
+		}
+		*/
+
+		.video {
+		    width: 100%;
+		}
+
+		#block3 {
+		    width: 80%;
+		    text-align: center;
+		    margin: 0px auto;
+		}
+
+
+
+		textarea {
+		    width: 90%;
+
+		}
+
+		.a-test {
+		    padding: 12px;
+		    margin: 12px;
+		    display: block;
+		    background-color: aqua;
+		}
