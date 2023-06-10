@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+<<<<<<< HEAD
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -166,6 +167,119 @@
 
 
 	</div>
+=======
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>貸款試算0.1</title>
+</head>
+
+<body>
+    <h1>貸款利息計算機</h1>
+    <form action="">
+        <label for="loanAmount">貸款金額</label>
+        <input type="number" name="loanAmount" id="loanAmount" value="100000"><br>
+        <label for="interestRate">貸款利率</label>
+        <input type="number" name="interestRate" id="interestRate" value="10"><br>
+        <label>還款週期</label>
+        <select name="loanTerm" id="loanTerm">貸款試算
+            <option value="3">3年</option>
+            <option value="5">5年</option>
+            <option value="7">7年</option>
+            <option value="20">20年</option>
+        </select><br>
+        <label>還款方式</label>
+        <input type="radio" name="replacement" id="PrincipalRepayment" checked>本金攤還
+        <input type="radio" name="replacement" id="AmortizationInterest">本息攤還
+        <br>
+        <button type="button" onclick="calc()">計算</button>
+    </form>
+    <div>
+
+    </div>
+
+    <script>
+        const LoanAmountEl = document.querySelector("#loanAmount");
+        const InterestRate = document.querySelector("#interestRate");
+        const LoanTerm = document.querySelector("#loanTerm");
+
+
+
+        function calc() {
+            //貸款金額
+            let loanAmount = LoanAmountEl.value;
+            //年利率
+            let interestRate = InterestRate.value;
+            //年限
+            let loanTerm = LoanTerm.value;
+
+            console.log(loanAmount, interestRate, loanTerm);
+
+            let period = loanTerm * 12;
+            let monthReplacement = parseInt(loanAmount / period);
+            totalInterest = 0;
+            for (let i = 0; i < period; i++) {
+                let interest = Math.round(loanAmount * (interestRate / 100 / 12));
+                totalInterest += interest;
+                if (i == period - 1) {
+                    console.log(`期別：${i + 1} 償還本金：${loanAmount - monthReplacement * (period - 1)} 償還利息：${interest} 償還本利和：${loanAmount - monthReplacement * (period - 1) + interest} 貸款餘額：${0}`);
+                }
+                else {
+                    console.log(`期別：${i + 1} 償還本金：${monthReplacement} 償還利息：${interest} 償還本利和：${monthReplacement + interest} 貸款餘額：${loanAmount - monthReplacement}`);
+                }
+
+                loanAmount -= monthReplacement;
+            }
+
+        }
+
+        function calcA() {
+            let tableHtml = `
+            <table border="1">
+                <thead> 
+                    <tr> 
+                        <th>期別</th>
+                        <th>償還本金</th>
+                        <th>償還利息</th>
+                        <th>償還本利和</th>
+                        <th>貸款餘額</th>
+                    </tr>
+                </thead>               
+                `
+            //貸款金額
+            let loanAmount = LoanAmountEl.value;
+            //年利率
+            let interestRate = InterestRate.value;
+            //年限
+            let loanTerm = LoanTerm.value;
+            console.log(loanAmount, interestRate, loanTerm);
+            let period = loanTerm * 12;
+            let monthReplacement = parseInt(loanAmount / period);
+            let totalInterest = 0;
+
+            for (let i = 0; i < period; i++) {
+                tableHtml += "<tr>";
+                let interest = Math.round(loanAmount * (interestRate / 100 / 12));
+                totalInterest += interest;
+                let text;
+                if (i == period - 1) {
+                    tableHtml += `<td>${i + 1}</td>`;
+                    tableHtml += `<td>${monthReplacement + loanAmount - monthReplacement}</td>`;
+                    tableHtml += `<td>${interest}</td>`;
+                    tableHtml += `<td>${monthReplacement + loanAmount - monthReplacement + interest}</td>`;
+
+
+
+                }
+
+            }
+
+
+
+        }
+
+    </script>
+>>>>>>> cfdbf9e (2023.6.10修改1)
 </body>
 
 </html>

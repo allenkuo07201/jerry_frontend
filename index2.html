@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>貸款試算0.1版</title>
+    <style>
+        form {
+            background-color: antiquewhite;
+            padding: 24px;
+            border-radius: 12px;
+            width: 500px;
+            margin: 0 auto;
+            text-align: left;
+        }
+
+        th {
+            background-color: blanchedalmond;
+        }
+
+        td {
+            background-color: aqua;
+        }
+
+        #container {
+            width: 90%;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        table {
+            width: 80%;
+            margin: 24px auto;
+            text-align: center;
+        }
+
+        @media screen and (max-width:768px) {
+            table {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <h1>貸款利息計算機</h1>
+        <form>
+            <label for="loanAmount">貸款金額</label>
+            <input type="number" name="loanAmount" id="loanAmount" value="100000">元<br>
+            <label for="interestRate">貸款利率</label>
+            <input type="number" name="interestRate" id="interestRate" value="10">年利率<br>
+            <label for="loanTerm">還款週期</label>
+            <select name="loanTerm" id="loanTerm">貸款試算
+                <option value="3">3年</option>
+                <option value="5">5年</option>
+                <option value="7">7年</option>
+                <option value="20">20年</option>
+            </select><br>
+            <label>還款方式</label>
+            <input type="radio" name="replacement" id="PrincipalRepayment" checked>本金攤還
+            <input type="radio" name="replacement" id="AmortizationInterest">本息攤還
+            <br>
+            <button type="button" onclick="calcB()">計算</button>
+        </form>
+        <table border="1" id="tableResult">
+            <thead>
+                <tr>
+                    <th>期別</th>
+                    <th>償還本金</th>
+                    <th>償還利息</th>
+                    <th>償還本利和</th>
+                    <th>貸款餘額</th>
+                </tr>
+            </thead>
+        </table>
+        <div id="result">
+
+        </div>
+    </div>
+
+    <script>
+        const LoanAmountEl = document.querySelector("#loanAmount");
+        const InterestRateEl = document.querySelector("#interestRate");
+        const LoanTermEl = document.querySelector("#loanTerm");
+        const resultEl = document.querySelector("#result");
+        const tableResultEl = document.querySelector("#tableResult");
+
+        console.log(tableResultEl);
+        resultEl.innerHTML = "<h2>計算結果:</h2>";
+
+        function calcB() {
+            // 貸款金額
+            let loanAmount = LoanAmountEl.value;
+            // 年利率
+            let interestRate = InterestRateEl.value;
+            // 年限
+            let loanTerm = LoanTermEl.value;
+            console.log(loanAmount, interestRate, loanTerm);
+            let proid = loanTerm * 12;
+            let monthReplacement = parseInt(loanAmount / proid);
+            // 計算總利息
+            let totalInterest = 0;
+            // 取得期數還款資訊
+            for (let i = 0; i < proid; i++) {
+                let interest = Math.round(loanAmount * (interestRate / 100 / 12));
+                totalInterest += interest;
+                //取得列物件
+                let row = tableResultEl.insertRow();
+                if (i == proid - 1) {
+                    //插入行物件
+                    row.insertCell().innerText = i + 1;
+                    row.insertCell().innerText = monthReplacement + loanAmount - monthReplacement;
+                    row.insertCell().innerText = interest;
+                    row.insertCell().innerText = monthReplacement + loanAmount - monthReplacement + interest;
+                    row.insertCell().innerText = 0;
+                }
+                else {
+                    row.insertCell().innerText = i + 1;
+                    row.insertCell().innerText = monthReplacement;
+                    row.insertCell().innerText = interest;
+                    row.insertCell().innerText = monthReplacement + interest;
+                    row.insertCell().innerText = loanAmount - monthReplacement;
+                }
+                loanAmount -= monthReplacement;
+            }
+        }
+
+
+        function calcA() {
+            let tableHtml = `
+            <table border="1">
+                <thead> 
+                    <tr> 
+                        <th>期別</th>
+                        <th>償還本金</th>
+                        <th>償還利息</th>
+                        <th>償還本利和</th>
+                        <th>貸款餘額</th>
+                    </tr>
+                </thead>               
+                `
+            // 貸款金額
+            let loanAmount = LoanAmountEl.value;
+            // 年利率
+            let interestRate = InterestRateEl.value;
+            // 年限
+            let loanTerm = LoanTermEl.value;
+            console.log(loanAmount, interestRate, loanTerm);
+            let proid = loanTerm * 12;
+            let monthReplacement = parseInt(loanAmount / proid);
+            let totalInterest = 0;
+
+            for (let i = 0; i < proid; i++) {
+                tableHtml += "<tr>";
+                let interest = Math.round(loanAmount * (interestRate / 100 / 12));
+                totalInterest += interest;
+                let text;
+                if (i == proid - 1) {
+                    tableHtml += `<td>${i + 1}</td>`;
+                    tableHtml += `<td>${monthReplacement + loanAmount - monthReplacement}</td>`;
+                    tableHtml += `<td>${interest}</td>`;
+                    tableHtml += `<td>${monthReplacement + loanAmount - monthReplacement + interest}</td>`;
+                    tableHtml += `<td>${0}</td>`;
+                }
+                else {
+                    tableHtml += `<td>${i + 1}</td>`;
+                    tableHtml += `<td>${monthReplacement}</td>`;
+                    tableHtml += `<td>${interest}</td>`;
+                    tableHtml += `<td>${monthReplacement + interest}</td>`;
+                    tableHtml += `<td>${loanAmount - monthReplacement}</td>`;
+                }
+
+                tableHtml += "</tr>";
+                loanAmount -= monthReplacement;
+            }
+
+            tableHtml += "</table>";
+            console.log(tableHtml);
+            resultEl.innerHTML = `<h2>總支出利息:${totalInterest}</h2>` + tableHtml;
+        }
+
+
+
+        function calc() {
+            // 貸款金額
+            let loanAmount = LoanAmountEl.value;
+            // 年利率
+            let interestRate = InterestRateEl.value;
+            // 年限
+            let loanTerm = LoanTermEl.value;
+
+            console.log(loanAmount, interestRate, loanTerm);
+
+            let proid = loanTerm * 12;
+            let monthReplacement = parseInt(loanAmount / proid);
+
+            let totalInterest = 0;
+            for (let i = 0; i < proid; i++) {
+                let interest = Math.round(loanAmount * (interestRate / 100 / 12));
+                totalInterest += interest;
+                let text;
+                if (i == proid - 1) {
+                    text = `期別:${i + 1} 償還本金:${monthReplacement + loanAmount - monthReplacement} 償還利息:${interest} 
+                    償還本利和:${monthReplacement + loanAmount - monthReplacement + interest} 貸款餘額:${0}`
+                    console.log(text);
+                }
+                else {
+                    text = `期別:${i + 1} 償還本金:${monthReplacement} 償還利息:${interest} 
+                    償還本利和:${monthReplacement + interest} 貸款餘額:${loanAmount - monthReplacement}`
+                    console.log(text);
+
+                }
+
+                resultEl.innerHTML += `<li>${text}</li>`;
+                loanAmount -= monthReplacement;
+            }
+
+            resultEl.innerHTML += `<h2>總支出利息:${totalInterest}</h2>`;
+        }
+
+    </script>
+</body>
+
+</html>
